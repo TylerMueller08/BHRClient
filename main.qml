@@ -11,16 +11,5 @@ Window {
         id: stackView
         anchors.fill: parent
         initialItem: "screens/MainScreen.qml"
-        background: Rectangle { color: Theme.backgroundColor }
-    }
-
-    Label {
-        text: "Blue Horizon Rocketry"
-        anchors.top: parent.top
-        anchors.topMargin: 75
-        anchors.horizontalCenter: parent.horizontalCenter
-        font.family: Theme.fontFamily
-        font.pointSize: Theme.titleSize
-        font.bold: true
     }
 }
