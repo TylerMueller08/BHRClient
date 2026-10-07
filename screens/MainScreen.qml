@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "themes"
 
 GridLayout {
     anchors.fill: parent
@@ -11,19 +10,13 @@ GridLayout {
     columnSpacing: 10
     rowSpacing: 10
 
-    Rectangle {
-        color: "lightblue"
-
+    WindowContainer {
         Layout.rowSpan: 3
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.preferredWidth: 2.5
 
-        Text {
-            anchors.centerIn: parent
-            text: "Test"
-            font.bold: true
-        }
+        window: synnaxApp
     }
 
     Rectangle {

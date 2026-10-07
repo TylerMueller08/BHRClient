@@ -1,16 +1,18 @@
-import sys, os
+import sys
 
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
-def main():
-    os.environ["QT_QUICK_CONTROLS_STYLE"] = "Material"
-    os.environ["QT_QUICK_CONTROLS_MATERIAL_THEME"] = "Dark"
+from EmbeddedWindow import EmbeddedWindow
 
+def main():
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
-    engine.load("main.qml")
 
+    synnaxApp = EmbeddedWindow.create()
+    engine.rootContext().setContextProperty("synnaxApp", synnaxApp)
+
+    engine.load("main.qml")
     if not engine.rootObjects():
         sys.exit(-1)
 
