@@ -1,57 +1,116 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtMultimedia
 
-GridLayout {
+Item {
+    id: rootWindow
     anchors.fill: parent
-    anchors.margins: 10
 
-    columns: 2
-    columnSpacing: 10
-    rowSpacing: 10
+    property string activeCameraName: ""
+    property color activeCameraColor: "transparent"
 
-    WindowContainer {
-        Layout.rowSpan: 3
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        Layout.preferredWidth: 2.5
+    GridLayout {
+        id: grid
+        anchors.fill: parent
+        anchors.margins: 10
+        columns: 2
+        columnSpacing: 10
+        rowSpacing: 10
 
-        window: synnaxApp
-    }
+        Rectangle {
+            color: "black"
+            Layout.rowSpan: 3
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.preferredWidth: 2.5
+            
+            Text {
+                anchors.centerIn: parent
+                text: "Synnax Application"
+                color: "white"
+            }
+        }
 
-    Rectangle {
-        color: "lightgreen"
+        Rectangle {
+            id: cam1
+            color: "lightgreen"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+            Text { anchors.centerIn: parent; text: "Camera #1" }
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    rootWindow.activeCameraName = "Camera #1"
+                    rootWindow.activeCameraColor = cam1.color
+                }
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
+            }
+        }
 
-        Text {
-            anchors.centerIn: parent
-            text: "Camera #1"
+        Rectangle {
+            id: cam2
+            color: "orange"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Text { anchors.centerIn: parent; text: "Camera #2" }
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    rootWindow.activeCameraName = "Camera #2"
+                    rootWindow.activeCameraColor = cam2.color
+                }
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
+            }
+        }
+
+        Rectangle {
+            id: cam3
+            color: "lightpink"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Text { anchors.centerIn: parent; text: "Camera #3" }
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    rootWindow.activeCameraName = "Camera #3"
+                    rootWindow.activeCameraColor = cam3.color
+                }
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
+            }
         }
     }
 
     Rectangle {
-        color: "orange"
-
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        id: fullscreenOverlay
+        anchors.fill: parent
+        anchors.margins: 10
+        color: rootWindow.activeCameraColor
+        
+        visible: rootWindow.activeCameraName !== ""
+        z: 999 
 
         Text {
             anchors.centerIn: parent
-            text: "Camera #2"
+            text: rootWindow.activeCameraName
+            font.pixelSize: 18
+            horizontalAlignment: Text.AlignHCenter
+            color: "black"
         }
-    }
 
-    Rectangle {
-        color: "lightpink"
-
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-
-        Text {
-            anchors.centerIn: parent
-            text: "Camera #3"
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                rootWindow.activeCameraName = ""
+                rootWindow.activeCameraColor = "transparent"
+            }
+            HoverHandler { cursorShape: Qt.PointingHandCursor }
         }
     }
 }

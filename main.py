@@ -9,8 +9,8 @@ def main():
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    synnaxApp = EmbeddedWindow.create()
-    engine.rootContext().setContextProperty("synnaxApp", synnaxApp)
+    # synnaxApp = EmbeddedWindow.create()
+    # engine.rootContext().setContextProperty("synnaxApp", synnaxApp)
 
     engine.load("main.qml")
     if not engine.rootObjects():
