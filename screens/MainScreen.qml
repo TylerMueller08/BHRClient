@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtMultimedia
 
 Item {
     anchors.fill: parent
@@ -12,31 +11,27 @@ Item {
 
         columns: 2
         columnSpacing: 10
+        rows: 3
         rowSpacing: 10
 
-        Rectangle {
-            color: "black"
+        LogPanelScreen {
             Layout.rowSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredWidth: 2.5
-            
-            Text {
-                anchors.centerIn: parent
-                text: "Empty"
-                color: "white"
-            }
+            Layout.preferredWidth: 2
         }
 
-        Rectangle {
-            id: cam1
-            color: "lightgreen"
+        CameraScreen {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Text {
-                anchors.centerIn: parent
-                text: "Camera #1"
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    stackView.push("CameraScreen.qml")
+                }
             }
         }
 
@@ -45,6 +40,15 @@ Item {
             color: "orange"
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    stackView.push("CameraScreen.qml")
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -69,6 +73,15 @@ Item {
             color: "lightpink"
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    stackView.push("CameraScreen.qml")
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
