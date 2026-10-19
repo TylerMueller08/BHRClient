@@ -8,11 +8,21 @@ Rectangle {
     Layout.fillWidth: true
     Layout.fillHeight: true
 
+    Timer {
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    Graph {
+        anchors.top: parent.top
+        anchors.topMargin: 125
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
     Row {
         anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 10
-
+        anchors.horizontalCenter: parent.horizontalCenter
         spacing: 15
         
         Gauge {
