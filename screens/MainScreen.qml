@@ -5,87 +5,99 @@ import QtQuick.Layouts
 Item {
     anchors.fill: parent
 
-    GridLayout {
+    RowLayout {
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: 5
+        spacing: 5
 
-        columns: 2
-        columnSpacing: 10
-        rows: 3
-        rowSpacing: 10
-
-        LogPanelScreen {
-            Layout.rowSpan: 2
+        ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredWidth: 2
-        }
+            spacing: 5
 
-        CameraScreen {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            LogPanelScreen {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
 
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    stackView.push("CameraScreen.qml")
+            Rectangle {
+                id: controlPanel
+                color: "gray"
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanel.cameraHeight
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "Control Panel"
                 }
             }
         }
 
-        Rectangle {
-            id: cam2
-            color: "orange"
-            Layout.fillWidth: true
+        Item {
+            id: rightPanel
             Layout.fillHeight: true
+            Layout.preferredWidth: (height > 10) ? (height - 10) * 16 / 27 : 200
+            readonly property real cameraHeight: width * 9 / 16
 
-            MouseArea {
+            Column {
                 anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    stackView.push("CameraScreen.qml")
+                spacing: 5
+
+                CameraScreen {
+                    width: parent.width
+                    height: rightPanel.cameraHeight
+
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            stackView.push("CameraScreen.qml")
+                        }
+                    }
                 }
-            }
 
-            Text {
-                anchors.centerIn: parent
-                text: "Camera #2"
-            }
-        }
+                Rectangle {
+                    id: cam2
+                    color: "orange"
+                    width: parent.width
+                    height: rightPanel.cameraHeight
 
-        Rectangle {
-            id: controlPanel
-            color: "gray"
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            stackView.push("CameraScreen.qml")
+                        }
+                    }
 
-            Text {
-                anchors.centerIn: parent
-                text: "Control Panel"
-            }
-        }
-
-        Rectangle {
-            id: cam3
-            color: "lightpink"
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    stackView.push("CameraScreen.qml")
+                    Text {
+                        anchors.centerIn: parent
+                        text: "Camera #2"
+                    }
                 }
-            }
 
-            Text {
-                anchors.centerIn: parent
-                text: "Camera #3"
+                Rectangle {
+                    id: cam3
+                    color: "lightpink"
+                    width: parent.width
+                    height: rightPanel.cameraHeight
+
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            stackView.push("CameraScreen.qml")
+                        }
+                    }
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: "Camera #3"
+                    }
+                }
             }
         }
     }
