@@ -1,14 +1,16 @@
 import QtQuick
 
 Rectangle {
-    width: 200
+    width: 150
     height: 50
+    color: "transparent"
 
-    color: "white"
-    border.color: "black"
     Text {
-        text: "T-00:00"
-        color: "black"
         anchors.centerIn: parent
+        text: "T-00:00:00"
+        color: "#cccccc"
+        font.family: "Segoe UI"
+        font.pointSize: 24
+        font.weight: Font.DemiBold
     }
 }

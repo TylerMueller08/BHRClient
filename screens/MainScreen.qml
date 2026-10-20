@@ -15,21 +15,14 @@ Item {
             Layout.fillHeight: true
             spacing: 5
 
-            LogPanelScreen {
+            MainPanel {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
 
-            Rectangle {
-                id: controlPanel
-                color: "gray"
+            ControlPanel {
                 Layout.fillWidth: true
                 Layout.preferredHeight: rightPanel.cameraHeight
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "Control Panel"
-                }
             }
         }
 
@@ -59,9 +52,10 @@ Item {
 
                 Rectangle {
                     id: cam2
-                    color: "orange"
+                    color: "#191a1b"
                     width: parent.width
                     height: rightPanel.cameraHeight
+                    radius: 10
 
                     MouseArea {
                         anchors.fill: parent
@@ -74,15 +68,20 @@ Item {
 
                     Text {
                         anchors.centerIn: parent
-                        text: "Camera #2"
+                        text: "Camera Not Connected"
+                        font.family: "Segoe UI"
+                        font.weight: Font.DemiBold
+                        font.pointSize: 11
+                        color: "#cccccc"
                     }
                 }
 
                 Rectangle {
                     id: cam3
-                    color: "lightpink"
+                    color: "#191a1b"
                     width: parent.width
                     height: rightPanel.cameraHeight
+                    radius: 10
 
                     MouseArea {
                         anchors.fill: parent
@@ -95,7 +94,11 @@ Item {
 
                     Text {
                         anchors.centerIn: parent
-                        text: "Camera #3"
+                        text: "Camera Not Connected"
+                        font.family: "Segoe UI"
+                        font.weight: Font.DemiBold
+                        font.pointSize: 11
+                        color: "#cccccc"
                     }
                 }
             }

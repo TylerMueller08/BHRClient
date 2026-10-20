@@ -4,18 +4,13 @@ import QtQuick.Layouts
 import "../widgets"
 
 Rectangle {
-    color: "lightgray"
     Layout.fillWidth: true
     Layout.fillHeight: true
+    color: "#191a1b"
+    radius: 10
 
     Timer {
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-
-    Graph {
-        anchors.top: parent.top
-        anchors.topMargin: 125
         anchors.horizontalCenter: parent.horizontalCenter
     }
 

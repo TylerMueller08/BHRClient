@@ -24,9 +24,10 @@ Item {
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         text: gauge.title
-        color: "black"
-        font.pixelSize: 16
-        font.bold: true
+        font.family: "Segoe UI"
+        font.weight: Font.DemiBold
+        font.pointSize: 14
+        color: "#cccccc"
     }
 
     Canvas {
@@ -34,7 +35,7 @@ Item {
         width: parent.width * 0.84
         height: width
         anchors.horizontalCenter: parent.horizontalCenter
-        y: parent.height * 0.16
+        y: parent.height * 0.2
 
         onPaint: {
             var ctx = getContext("2d")
@@ -76,9 +77,10 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height * 0.47
         text: Number(gauge.value).toFixed(gauge.decimals)
-        color: "black"
+        color: "#cccccc"
         font.pixelSize: parent.width * 0.13
-        font.family: "monospace"
+        font.family: "Segoe UI"
+        font.weight: Font.DemiBold
         horizontalAlignment: Text.AlignHCenter
     }
 
@@ -86,26 +88,30 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height * 0.61
         text: gauge.unit
-        color: "black"
+        color: "#cccccc"
         font.pixelSize: parent.width * 0.1
+        font.family: "Segoe UI"
+        font.weight: Font.DemiBold
     }
 
     Text {
         x: parent.width * 0.25
         y: parent.height * 0.85
         text: gauge.minValue
-        color: "#777777"
+        color: "#cccccc"
         font.pixelSize: 14
-        font.family: "monospace"
+        font.family: "Segoe UI"
+        font.weight: Font.DemiBold
     }
 
     Text {
         x: parent.width * 0.6
         y: parent.height * 0.85
         text: gauge.maxValue
-        color: "#777777"
+        color: "#cccccc"
         font.pixelSize: 14
-        font.family: "monospace"
+        font.family: "Segoe UI"
+        font.weight: Font.DemiBold
     }
 
     onValueChanged: dial.requestPaint()

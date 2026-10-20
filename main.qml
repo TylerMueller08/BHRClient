@@ -10,5 +10,6 @@ Window {
         id: stackView
         anchors.fill: parent
         initialItem: "screens/MainScreen.qml"
+        background: Rectangle { color: "#121314" }
     }
 }
