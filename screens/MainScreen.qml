@@ -7,13 +7,13 @@ Item {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 5
-        spacing: 5
+        anchors.margins: 10
+        spacing: 10
 
         ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 5
+            spacing: 10
 
             MainPanel {
                 Layout.fillWidth: true
@@ -29,12 +29,12 @@ Item {
         Item {
             id: rightPanel
             Layout.fillHeight: true
-            Layout.preferredWidth: (height > 10) ? (height - 10) * 16 / 27 : 200
+            Layout.preferredWidth: (height > 20) ? (height - 20) * 16 / 27 : 200
             readonly property real cameraHeight: width * 9 / 16
 
             Column {
                 anchors.fill: parent
-                spacing: 5
+                spacing: 10
 
                 CameraScreen {
                     width: parent.width

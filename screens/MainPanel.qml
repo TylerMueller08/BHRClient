@@ -14,7 +14,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    Row {
+    RowLayout {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
