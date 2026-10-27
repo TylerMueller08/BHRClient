@@ -10,6 +10,8 @@ Item {
     property string unit
     property int decimals
     property color accentColor
+    property bool selected: false
+    signal clicked()
 
     implicitWidth: 120
     implicitHeight: 120
@@ -19,6 +21,20 @@ Item {
         ? Math.max(0, Math.min(1,
             (value - minValue) / (maxValue - minValue)))
         : 0
+
+    Rectangle {
+        anchors.fill: parent
+        color: gauge.selected ? "#22252a" : "transparent"
+        border.color: gauge.selected ? gauge.accentColor : "transparent"
+        border.width: 2
+        radius: 10
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: gauge.clicked()
+    }
 
     Text {
         anchors.top: parent.top
