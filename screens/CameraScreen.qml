@@ -3,6 +3,35 @@ import QtQuick.Controls
 import QtMultimedia
 
 Item {
+    id: root
+    property string cameraKey: ""
+    property string label: "Camera"
+    property bool running: true
+
+    readonly property int camIndex: {
+        cameraFinder.revision
+        return cameraFinder.indexOf(cameraKey)
+    }
+    readonly property bool found: camIndex >= 0
+    property bool deviceBound: false
+    property string errorText: ""
+    
+    function syncDevice() {
+        if (found) {
+            camera.cameraDevice = mediaDevices.videoInputs[camIndex]
+            deviceBound = true
+        } else {
+            deviceBound = false
+        }
+    }
+
+    onCamIndexChanged: {
+        errorText = ""
+        syncDevice()
+    }
+
+    Component.onCompleted: syncDevice()
+
     MediaDevices {
         id: mediaDevices
     }
@@ -11,26 +40,43 @@ Item {
         id: captureSession
         camera: Camera {
             id: camera
-            cameraDevice: mediaDevices.defaultVideoInput
+            active: root.running && root.deviceBound
+            onErrorOccurred: (error, errorString) => root.errorText = errorString
         }
         videoOutput: videoOutput
     }
 
-    VideoOutput {
-        id: videoOutput
+    Rectangle {
+        id: viewPanel
         anchors.fill: parent
-    }
-
-    Component.onCompleted: {
-        camera.start()
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: {
-            stackView.pop()
+        color: "#121314"
+        
+        VideoOutput {
+            id: videoOutput
+            anchors.fill: parent
         }
+        Text {
+            anchors.centerIn: parent
+            width: parent.width-20
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+            color: "white"
+            font.pixelSize: 14
+            visible: !root.found || root.errorText !== ""
+            text: !root.found ? root.label + " not connected"
+                             :root.label + ": " + root.errorText
+        }
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            onClicked: root.state = (root.state === "fullscreen") ? "" : "fullscreen"
+        }
+    }
+   
+
+    states: State {
+        name: "fullscreen"
+        ParentChange {target: viewPanel; parent: root.Window.window.fullscreenLayer}
+
     }
 }

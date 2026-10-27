@@ -1,16 +1,17 @@
-import sys
+import sys, time, serial
 
+from PySide6.QtCore import QObject, Slot
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
-from threads.telemetry import Telemetry
+from threads.camera import CameraFinder
 
 def main():
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    telemetry = Telemetry()
-    engine.rootContext().setContextProperty("telemetry", telemetry)
+    camera_finder = CameraFinder()
+    engine.rootContext().setContextProperty("cameraFinder", camera_finder)
 
     engine.load("main.qml")
     if not engine.rootObjects():
@@ -20,3 +21,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# TODO: Move to seperate file.
+class Controller(QObject):
+    def __init__(self):
+        super().__init__()
+        self.ser = serial.Serial('COM3', 9600)
+        time.sleep(2)
+
+    @Slot()
+    def launch(self):
+        self.ser.write(b'A')
+        time.sleep(1)
+
+    def close(self):
+        self.ser.close()

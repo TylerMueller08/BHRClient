@@ -39,67 +39,22 @@ Item {
                 CameraScreen {
                     width: parent.width
                     height: rightPanel.cameraHeight
-
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            stackView.push("CameraScreen.qml")
-                        }
-                    }
+                    cameraKey: "vid_0408&pid_547e&mi_00"
+                    label: "Laptop Cam"
                 }
 
-                Rectangle {
-                    id: cam2
-                    color: "#191a1b"
+                CameraScreen {
                     width: parent.width
                     height: rightPanel.cameraHeight
-                    radius: 10
-
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            stackView.push("CameraScreen.qml")
-                        }
-                    }
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Camera Not Connected"
-                        font.family: "Segoe UI"
-                        font.weight: Font.DemiBold
-                        font.pointSize: 11
-                        color: "#cccccc"
-                    }
+                    cameraKey: "1d1eb0e8"
+                    label: "C920 A"
                 }
 
-                Rectangle {
-                    id: cam3
-                    color: "#191a1b"
+                CameraScreen {
                     width: parent.width
                     height: rightPanel.cameraHeight
-                    radius: 10
-
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            stackView.push("CameraScreen.qml")
-                        }
-                    }
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Camera Not Connected"
-                        font.family: "Segoe UI"
-                        font.weight: Font.DemiBold
-                        font.pointSize: 11
-                        color: "#cccccc"
-                    }
+                    cameraKey: "389a725b"
+                    label: "C920 B"
                 }
             }
         }
