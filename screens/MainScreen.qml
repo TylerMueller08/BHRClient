@@ -39,22 +39,22 @@ Item {
                 CameraScreen {
                     width: parent.width
                     height: rightPanel.cameraHeight
-                    cameraKey: "vid_0408&pid_547e&mi_00"
-                    label: "Laptop Cam"
-                }
-
-                CameraScreen {
-                    width: parent.width
-                    height: rightPanel.cameraHeight
                     cameraKey: "1d1eb0e8"
-                    label: "C920 A"
+                    label: "Camera #1"
                 }
 
                 CameraScreen {
                     width: parent.width
                     height: rightPanel.cameraHeight
                     cameraKey: "389a725b"
-                    label: "C920 B"
+                    label: "Camera #2"
+                }
+
+                CameraScreen {
+                    width: parent.width
+                    height: rightPanel.cameraHeight
+                    cameraKey: "x"
+                    label: "Camera #3"
                 }
             }
         }

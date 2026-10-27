@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtMultimedia
+import QtQuick.Effects
 
 Item {
     id: root
@@ -49,21 +50,39 @@ Item {
     Rectangle {
         id: viewPanel
         anchors.fill: parent
-        color: "#121314"
-        
+        color: "#191a1b"
+        radius: root.state === "fullscreen" ? 0 : 10
+
         VideoOutput {
             id: videoOutput
             anchors.fill: parent
+            visible: false
+        }
+        MultiEffect {
+            anchors.fill: videoOutput
+            source: videoOutput
+            maskEnabled: root.state !== "fullscreen"
+            maskSource: maskRect
+        }
+        Rectangle {
+            id: maskRect
+            anchors.fill: parent
+            radius: root.state === "fullscreen" ? 0 : 10
+            color: "black"
+            visible: false
+            layer.enabled: true
         }
         Text {
             anchors.centerIn: parent
             width: parent.width-20
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
-            color: "white"
+            color: "#cccccc"
+            font.family: "Segoe UI"
+            font.weight: Font.DemiBold
             font.pixelSize: 14
             visible: !root.found || root.errorText !== ""
-            text: !root.found ? root.label + " not connected"
+            text: !root.found ? root.label + " is Not Connected!"
                              :root.label + ": " + root.errorText
         }
         MouseArea {
@@ -72,11 +91,9 @@ Item {
             onClicked: root.state = (root.state === "fullscreen") ? "" : "fullscreen"
         }
     }
-   
 
     states: State {
         name: "fullscreen"
         ParentChange {target: viewPanel; parent: root.Window.window.fullscreenLayer}
-
     }
 }
