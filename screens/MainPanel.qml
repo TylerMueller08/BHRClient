@@ -5,6 +5,8 @@ import TelemetryGraph 1.0
 import "../widgets"
 
 Rectangle {
+    id: mainPanel
+
     Layout.fillWidth: true
     Layout.fillHeight: true
     color: "#191a1b"
@@ -16,56 +18,58 @@ Rectangle {
         spacing: 15
 
         Timer {
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         }
 
         PyQtGraphItem {
             id: graphItem
-            Layout.preferredWidth: 400
-            Layout.preferredHeight: 280
-            Layout.fillHeight: true
+
             Layout.alignment: Qt.AlignHCenter
-            Component.onCompleted: telemetryController.registerGraph(graphItem)
+            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillHeight: true
+            width: mainPanel.width * 0.45
+
+            Component.onCompleted: telemetry.registerGraph(graphItem)
         }
 
         RowLayout {
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
             spacing: 15
             
             Gauge {
                 title: "Oxygen"
-                value: telemetryController.oxygen
+                value: telemetry.oxygen
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#004F98"
-                selected: telemetryController.activeGauge === title
-                onClicked: telemetryController.selectGauge(title)
+                selected: telemetry.activeGauge === title
+                onClicked: telemetry.selectGauge(title)
             }
 
             Gauge {
                 title: "Fuel"
-                value: telemetryController.fuel
+                value: telemetry.fuel
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#00984F"
-                selected: telemetryController.activeGauge === title
-                onClicked: telemetryController.selectGauge(title)
+                selected: telemetry.activeGauge === title
+                onClicked: telemetry.selectGauge(title)
             }
 
             Gauge {
                 title: "Nitrogen"
-                value: telemetryController.nitrogen
+                value: telemetry.nitrogen
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#D97706"
-                selected: telemetryController.activeGauge === title
-                onClicked: telemetryController.selectGauge(title)
+                selected: telemetry.activeGauge === title
+                onClicked: telemetry.selectGauge(title)
             }
         }
     }

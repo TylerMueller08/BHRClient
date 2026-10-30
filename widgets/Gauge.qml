@@ -14,7 +14,7 @@ Item {
     signal clicked()
 
     implicitWidth: 120
-    implicitHeight: 120
+    implicitHeight: 135
 
     readonly property real fraction:
         maxValue > minValue
@@ -112,7 +112,7 @@ Item {
 
     Text {
         x: parent.width * 0.25
-        y: parent.height * 0.85
+        y: parent.height * 0.8
         text: gauge.minValue
         color: "#cccccc"
         font.pixelSize: 14
@@ -122,7 +122,7 @@ Item {
 
     Text {
         x: parent.width * 0.6
-        y: parent.height * 0.85
+        y: parent.height * 0.8
         text: gauge.maxValue
         color: "#cccccc"
         font.pixelSize: 14
