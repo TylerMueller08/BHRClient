@@ -38,37 +38,37 @@ Rectangle {
             
             Gauge {
                 title: "Oxygen"
-                value: telemetry.oxygen
+                value: telemetry ? telemetry.oxygen : 0
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#004F98"
-                selected: telemetry.activeGauge === title
+                selected: telemetry ? telemetry.activeGauge === title : false
                 onClicked: telemetry.selectGauge(title)
             }
 
             Gauge {
                 title: "Fuel"
-                value: telemetry.fuel
+                value: telemetry ? telemetry.fuel : 0
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#00984F"
-                selected: telemetry.activeGauge === title
+                selected: telemetry ? telemetry.activeGauge === title : false
                 onClicked: telemetry.selectGauge(title)
             }
 
             Gauge {
                 title: "Nitrogen"
-                value: telemetry.nitrogen
+                value: telemetry ? telemetry.nitrogen : 0
                 minValue: 0
                 maxValue: 100
                 unit: "%"
                 decimals: 1
                 accentColor: "#D97706"
-                selected: telemetry.activeGauge === title
+                selected: telemetry ? telemetry.activeGauge === title : false
                 onClicked: telemetry.selectGauge(title)
             }
         }

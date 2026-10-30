@@ -10,6 +10,8 @@ Item {
     property bool running: true
 
     readonly property int camIndex: {
+        if (!cameraFinder)
+            return -1
         cameraFinder.revision
         return cameraFinder.indexOf(cameraKey)
     }
