@@ -22,7 +22,7 @@ def main():
     if not engine.rootObjects():
         sys.exit(-1)
 
-    telemetry_controller.cleanup()
+    app.aboutToQuit.connect(telemetry_controller.cleanup)
     sys.exit(app.exec())
 
 if __name__ == "__main__":

@@ -1,61 +1,61 @@
-from PySide6.QtCore import QObject, Signal, Slot
-import threading, random
+from PySide6.QtCore import QObject, QTimer, Signal, Slot
+import random, json
+
+class SimulatedLink(QObject):
+    frameReceived = Signal(dict) # Input channel values.
+    stateChanged = Signal(bool, str)
+
+    def __init__(self, interval_ms=1000):
+        super().__init__()
+        self._timer = QTimer(self)
+        self._timer.setInterval(interval_ms)
+        self._timer.timeout.connect(self._tick)
+
+    def open(self):
+        self._timer.start()
+        self.stateChanged.emit(True, "Simulator Connected")
+
+    def close(self):
+        self._timer.stop()
+        self.stateChanged.emit(False, "Simulator Disconnected")
+
+    def send(self, data: bytes) -> bool:
+        print(f"[Simulator] Sending data: {data}")
+        return True
+
+    def _tick(self):
+        self.frameReceived.emit({
+            "oxygen": round(random.uniform(75.0, 95.0), 1),
+            "fuel": round(random.uniform(60.0, 90.0), 1),
+            "nitrogen": round(random.uniform(40.0, 60.0), 1)
+        })
+
 
 class RocketChannelWorker(QObject):
-    channelUpdated = Signal(str, float) # Input channel values.
+    telemetryReceived = Signal(dict) # Input channel values.
     connectionStateChanged = Signal(bool, str) # Status of rocket connection.
+    commandSent = Signal(str, bool) # Command sent to the rocket.
 
-    def __init__(self):
+    def __init__(self, link_factory=SimulatedLink):
         super().__init__()
-        self._running = False
-        self._thread = None
-        self._stop_event = threading.Event()
+        self._link_factory = link_factory
+        self._link = None
 
-        # Defining channels and assigning default states.
-        self.input_channels = {
-            "oxygen": 0.0,
-            "fuel": 0.0,
-            "nitrogen": 0.0
-        }
-
+    @Slot()
     def start(self):
-        if self._running:
-            return
-        self._running = True
-        self._stop_event.clear()
-        self._thread = threading.Thread(target=self._run_loop, daemon=True)
-        self._thread.start()
-
-    def _run_loop(self):
-        self.connectionStateChanged.emit(True, "Rocket Connected")
-
-        while self._running and not self._stop_event.is_set():
-            try:
-                # Simulation only.
-                # Read incoming bytes instead of random generation.
-                self.input_channels["oxygen"] = round(random.uniform(75.0, 95.0), 1)
-                self.input_channels["fuel"] = round(random.uniform(60.0, 90.0), 1)
-                self.input_channels["nitrogen"] = round(random.uniform(40.0, 60.0), 1)
-    
-                for name, value in self.input_channels.items():
-                    self.channelUpdated.emit(name, value)
-    
-            except Exception as e:
-                self.connectionStateChanged.emit(False, str(e))
-
-            self._stop_event.wait(1.0)
-
-        self.connectionStateChanged.emit(False, "Rocket Disconnected")
+        self._link = self._link_factory()
+        self._link.setParent(self)
+        self._link.frameReceived.connect(self.telemetryReceived)
+        self._link.stateChanged.connect(self.connectionStateChanged)
+        self._link.open()
 
     @Slot()
     def stop(self):
-        self._running = False
-        self._stop_event.set()
-        if self._thread and self._thread.is_alive():
-            self._thread.join(timeout=2.0)
+        if self._link:
+            self._link.close()
 
     @Slot(str, str)
     def dispatch(self, command_name, payload):
-        # Sends a command channel (e.g. Launch, Abort, Terminal, or Valves)
-        print(f"Sending Command {command_name} with payload {payload}")
-        # TODO: Implement socket write.
+        data = json.dumps({"cmd": command_name, "payload": payload}).encode() + b"\n"
+        ok = self._link is not None and self._link.send(data)
+        self.commandSent.emit(command_name, ok)
