@@ -30,6 +30,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
+                onClicked: telemetry.sendCommand("LAUNCH_SEQUENCE", "ARMED")
             }
         }
 
@@ -75,6 +76,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
+                onClicked: telemetry.sendCommand("ABORT", "EMERGENCY")
             }
         }
     }

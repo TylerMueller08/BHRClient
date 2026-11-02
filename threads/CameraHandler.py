@@ -1,14 +1,14 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot
 from PySide6.QtMultimedia import QMediaDevices
  
- 
-class CameraFinder(QObject):
+class CameraHandler(QObject):
     camerasChanged = Signal()
  
     def __init__(self, parent=None):
         super().__init__(parent)
         self._revision = 0
-        # Watch for cameras being plugged in or unplugged
+
+        # Watch for camera detection.
         self._media_devices = QMediaDevices(self)
         self._media_devices.videoInputsChanged.connect(self._on_inputs_changed)
  
@@ -16,8 +16,6 @@ class CameraFinder(QObject):
         self._revision += 1
         self.camerasChanged.emit()
  
-    # QML bindings that read this property re-evaluate whenever it changes,
-    # which is how the panels notice hot-plugged cameras.
     @Property(int, notify=camerasChanged)
     def revision(self):
         return self._revision
