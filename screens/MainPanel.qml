@@ -21,15 +21,26 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         }
 
-        PyQtGraphItem {
-            id: graphItem
+        RowLayout {
+            PyQtGraphItem {
+                id: graphItem
 
-            Layout.alignment: Qt.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            Layout.fillHeight: true
-            width: mainPanel.width * 0.45
+                Layout.alignment: Qt.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.fillHeight: true
+                width: mainPanel.width * 0.45
 
-            Component.onCompleted: telemetry.registerGraph(graphItem)
+                Component.onCompleted: telemetry.registerGraph(graphItem)
+            }
+
+            BarChart {
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                title: "Altitude"
+                value: 40
+                minValue: 0
+                maxValue: 100
+                accentColor: "red"
+            }
         }
 
         RowLayout {
