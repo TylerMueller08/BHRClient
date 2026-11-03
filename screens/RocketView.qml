@@ -4,8 +4,11 @@ import QtQuick3D.Helpers
 
 Item {
     width: 200
-    height: 300
+    height: 260
     
+    id: rocketView
+    Component.onCompleted: console.log(typeof rocketView.resetOrientation)
+    function resetOrientation() {rocket.eulerRotation = Qt.vector3d(0, 0, 0)}
     
     View3D {
         id: view
@@ -15,6 +18,8 @@ Item {
 
         property var held: ({})
         property real degPerSec: 90
+
+        
 
         Keys.onPressed: (e) => { if (!e.isAutoRepeat) held[e.key] = true}
         Keys.onReleased: (e) => { if (!e.isAutoRepeat) held[e.key] = false}
