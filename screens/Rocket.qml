@@ -9,9 +9,12 @@ Node {
     PrincipledMaterial {
         id: principledMaterial_material
         objectName: "PrincipledMaterial"
-        metalness: 1
+        metalness: 0
         roughness: 1
+        baseColor: "white"
+        cullMode: Material.NoCulling
         alphaMode: PrincipledMaterial.Opaque
+        lighting: PrincipledMaterial.NoLighting
     }
 
     // Nodes:

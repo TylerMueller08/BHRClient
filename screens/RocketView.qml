@@ -23,7 +23,8 @@ Item {
 
         environment: SceneEnvironment {
             backgroundMode: SceneEnvironment.Color
-            clearColor: "white"
+            clearColor: "#191a1b"
+            antialiasingMode: SceneEnvironment.MSAA
         }
 
         PerspectiveCamera {
@@ -34,8 +35,6 @@ Item {
 
         }
 
-        DirectionalLight { 
-        }
 
         FrameAnimation {
             running: true
