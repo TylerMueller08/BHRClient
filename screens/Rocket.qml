@@ -1,0 +1,56 @@
+import QtQuick
+import QtQuick3D
+
+Node {
+    id: root
+    objectName: "Root"
+
+    // Resources
+    PrincipledMaterial {
+        id: principledMaterial_material
+        objectName: "PrincipledMaterial"
+        metalness: 1
+        roughness: 1
+        alphaMode: PrincipledMaterial.Opaque
+    }
+
+    // Nodes:
+    Node {
+        id: root1
+        objectName: "ROOT"
+        Model {
+            id: body
+            objectName: "body"
+            source: "meshes/body_mesh.mesh"
+            materials: [
+                principledMaterial_material
+            ]
+        }
+        Model {
+            id: nose
+            objectName: "nose"
+            source: "meshes/nose_mesh.mesh"
+            materials: [
+                principledMaterial_material
+            ]
+        }
+        Model {
+            id: nozzle
+            objectName: "nozzle"
+            source: "meshes/nozzle_mesh.mesh"
+            materials: [
+                principledMaterial_material
+            ]
+        }
+        Model {
+            id: fins
+            objectName: "fins"
+            source: "meshes/fins_mesh.mesh"
+            materials: [
+                principledMaterial_material
+            ]
+        }
+    }
+
+    // Animations:
+}
