@@ -17,10 +17,14 @@ Node {
         lighting: PrincipledMaterial.NoLighting
     }
 
+
     // Nodes:
     Node {
         id: root1
         objectName: "ROOT"
+        
+        position: Qt.vector3d(0,-100,0)
+
         Model {
             id: body
             objectName: "body"
@@ -55,5 +59,6 @@ Node {
         }
     }
 
+    
     // Animations:
 }
