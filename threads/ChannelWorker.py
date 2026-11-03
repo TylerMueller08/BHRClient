@@ -27,7 +27,8 @@ class SimulatedLink(QObject):
         self.frameReceived.emit({
             "oxygen": round(random.uniform(75.0, 95.0), 1),
             "fuel": round(random.uniform(60.0, 90.0), 1),
-            "nitrogen": round(random.uniform(40.0, 60.0), 1)
+            "nitrogen": round(random.uniform(40.0, 60.0), 1),
+            "altitude": round(random.uniform(0.0, 100.0), 1)
         })
 
 

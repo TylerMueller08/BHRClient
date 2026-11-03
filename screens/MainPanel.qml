@@ -36,7 +36,7 @@ Rectangle {
             BarChart {
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 title: "Altitude"
-                value: 40
+                value: telemetry ? telemetry.altitude : 0
                 minValue: 0
                 maxValue: 100
                 accentColor: "red"
