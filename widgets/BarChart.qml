@@ -8,11 +8,17 @@ Item {
     property real minValue
     property real maxValue
     property string unit
-    property int decimals
     property color accentColor
+
+    property int majorCount: 5
+    property int minorCount: 4
+    property color tickColor: "gray"
 
     implicitWidth: 200
     implicitHeight: 300
+
+    readonly property int stepsPerMajor: minorCount + 1
+    readonly property int totalTicks: (majorCount - 1) * stepsPerMajor + 1
 
     readonly property real fraction:
         maxValue > minValue
@@ -61,6 +67,22 @@ Item {
 
             onWidthChanged: requestPaint()
             onHeightChanged: requestPaint()
+        }
+
+        Repeater {
+            model: barChart.totalTicks
+
+            delegate: Rectangle {
+                readonly property bool major: index % barChart.stepsPerMajor === 0
+                readonly property real frac: index / (barChart.totalTicks - 1)
+
+                width: major ? 16 : 8
+                height: major ? 2 : 1
+                color: barChart.tickColor
+                anchors.right: parent.left
+                anchors.rightMargin: 4
+                y: chartArea.height * (1 - frac) - height / 2
+            }
         }
     }
 
