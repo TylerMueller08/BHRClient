@@ -22,11 +22,12 @@ Rectangle {
         }
 
         RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 15
+
             PyQtGraphItem {
                 id: graphItem
 
-                Layout.alignment: Qt.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
                 Layout.fillHeight: true
                 width: mainPanel.width * 0.45
 
@@ -34,12 +35,11 @@ Rectangle {
             }
 
             BarChart {
-                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 title: "Altitude"
                 value: telemetry ? telemetry.altitude : 0
                 minValue: 0
                 maxValue: 100
-                accentColor: "red"
+                accentColor: "#ababab"
             }
         }
 

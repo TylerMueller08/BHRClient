@@ -11,7 +11,7 @@ Item {
     property int decimals
     property color accentColor
 
-    implicitWidth: 140
+    implicitWidth: 200
     implicitHeight: 300
 
     readonly property real fraction:
@@ -25,15 +25,15 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         text: barChart.title
         font.family: "Segoe UI"
-        font.weight: Font.DemiBold
-        font.pointSize: 12
+        font.weight: Font.Bold
+        font.pointSize: 13
         color: "#cccccc"
     }
 
     Item {
         id: chartArea
         y: parent.height * 0.1
-        width: parent.width * 0.45
+        width: parent.width * 0.3
         height: parent.height * 0.8
         anchors.horizontalCenter: parent.horizontalCenter
 
@@ -65,21 +65,21 @@ Item {
     }
 
     Text {
-        x: parent.width * 0.16
+        x: parent.width * 0.32
         y: parent.height * 0.9
         text: barChart.minValue
         color: "#cccccc"
-        font.pixelSize: 14
+        font.pixelSize: 15
         font.family: "Segoe UI"
         font.weight: Font.DemiBold
     }
 
     Text {
-        x: parent.width * 0.75
+        x: parent.width * 0.60
         y: parent.height * 0.9
         text: barChart.maxValue
         color: "#cccccc"
-        font.pixelSize: 14
+        font.pixelSize: 15
         font.family: "Segoe UI"
         font.weight: Font.DemiBold
     }
