@@ -21,41 +21,16 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         }
         RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 15
 
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            spacing: 30
-            ColumnLayout {
-                RocketView {
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                    id: rocketView
-                }
-
-                Rectangle {
-                    height: 40
-                    width: 200
-                    color: "#121314"
-                    
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Reset"
-                        font.family: "Segoe UI"
-                        font.weight: Font.Bold
-                        font.pointSize: 8
-                        color: "#cccccc"
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: rocketView.resetOrientation()
-                    }
-                }
+            RocketView {
+                Layout.alignment: Qt. AlignLeft
+                id: rocketView
             }
-            
 
             PyQtGraphItem {
                 id: graphItem
-
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignRight
                 Layout.fillHeight: true
                 width: mainPanel.width * 0.45
 
