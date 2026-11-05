@@ -19,7 +19,6 @@ class TelemetryController(QObject):
             "oxygen": 0.0,
             "fuel": 0.0,
             "nitrogen": 0.0,
-            "altitude": 0.0
             "attitude": QVector3D(0,0,0)
         }
 
@@ -109,9 +108,6 @@ class TelemetryController(QObject):
 
     @Property(str, notify=dataChanged)
     def activeGauge(self): return self._active_gauge.capitalize()
-
-    @Property(float, notify=dataChanged)
-    def altitude(self): return self.channels["altitude"]
 
     def cleanup(self):
         if self._thread.isRunning():
