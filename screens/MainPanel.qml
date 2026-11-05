@@ -20,7 +20,6 @@ Rectangle {
         Timer {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         }
-
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             spacing: 15
@@ -36,14 +35,6 @@ Rectangle {
                 width: mainPanel.width * 0.45
 
                 Component.onCompleted: telemetry.registerGraph(graphItem)
-            }
-
-            BarChart {
-                title: "Altitude"
-                value: telemetry ? telemetry.altitude : 0
-                minValue: 0
-                maxValue: 100
-                accentColor: "#ababab"
             }
         }
 
