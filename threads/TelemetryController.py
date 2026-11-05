@@ -1,4 +1,5 @@
 from PySide6.QtCore import QThread, QObject, Signal, Slot, QMetaObject, Property, Qt, Q_ARG
+from PySide6.QtGui import QVector3D
 from collections import deque
 import time
 
@@ -17,7 +18,8 @@ class TelemetryController(QObject):
         self.channels = {
             "oxygen": 0.0,
             "fuel": 0.0,
-            "nitrogen": 0.0
+            "nitrogen": 0.0,
+            "attitude": QVector3D(0,0,0)
         }
 
         self._active_gauge = "oxygen"
@@ -59,8 +61,8 @@ class TelemetryController(QObject):
 
         for name, value in values.items():
             if name in self.channels:
-                self.channels[name] = float(value)
-                self.history[name].append(float(value))
+                self.channels[name] = value
+                self.history[name].append(value)
 
         self.dataChanged.emit()
         self.refreshGraph()
@@ -100,6 +102,9 @@ class TelemetryController(QObject):
 
     @Property(float, notify=dataChanged)
     def nitrogen(self): return self.channels["nitrogen"]
+
+    @Property(QVector3D, notify=dataChanged)
+    def attitude(self): return self.channels["attitude"]
 
     @Property(str, notify=dataChanged)
     def activeGauge(self): return self._active_gauge.capitalize()

@@ -49,17 +49,10 @@ ColumnLayout {
                 onTriggered: {
                     const t = elapsedTime
                     const a = view.degPerSec * frameTime
-                    if (view.held[Qt.Key_W]) rocket.rotate(a, Qt.vector3d(1,0,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_S]) rocket.rotate(-a, Qt.vector3d(1,0,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_D]) rocket.rotate(-a, Qt.vector3d(0,0,1), Node.LocalSpace)
-                    if (view.held[Qt.Key_A]) rocket.rotate(a, Qt.vector3d(0,0,1), Node.LocalSpace)
-                    if (view.held[Qt.Key_Q]) rocket.rotate(a, Qt.vector3d(0,1,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_E]) rocket.rotate(-a, Qt.vector3d(0,1,0), Node.LocalSpace)
                     if (view.held[Qt.Key_R]) {
                         rocketView.resetOrientation();
-                    } 
-
-                    rocket.rotateNode.eulerRotation = Qt.vector3d(4 * Math.sin(t * 2.0 + phase), (90 * t) % 360, 4 * Math.sin(t * 2.6))
+                    }
+                    rocket.rotateNode.eulerRotation = telemetry.attitude
                     
 
                 }
