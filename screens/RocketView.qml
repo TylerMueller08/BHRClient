@@ -35,18 +35,17 @@ ColumnLayout {
             }
 
             PerspectiveCamera {
-                id: camera
                 position: Qt.vector3d(0, 250, 650)
+                id: camera
                 eulerRotation.x: -15 
                 fieldOfView: 90
-
             }
 
 
             FrameAnimation {
                 running: true
                 onTriggered: {
-                    const pitch = Math.sin(elapsedTime * (Math.random() + 5)) * 0.5
+                    const pitch = Math.sin(elapsedTime * (Math.random() + 5))
                     const yaw = Math.sin(elapsedTime * (Math.random() + 5) + 1) * 0.5
                     const roll = (view.degPerSec * frameTime) * 2
                     const a = view.degPerSec * frameTime
@@ -56,11 +55,11 @@ ColumnLayout {
                     if (view.held[Qt.Key_A]) rocket.rotate(-a, Qt.vector3d(0,0,1), Node.LocalSpace)
                     if (view.held[Qt.Key_Q]) rocket.rotate(a, Qt.vector3d(0,1,0), Node.LocalSpace)
                     if (view.held[Qt.Key_E]) rocket.rotate(-a, Qt.vector3d(0,1,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_R]) rocket.eulerRotation = Qt.vector3d(0, 0, 0)
+                    if (view.held[Qt.Key_R]) rocket.eulerRotation = Qt.vector3d(0, 0, 0); rocket.bodyNode.eulerRotation = Qt.vector3d(0,0,0)
 
-                    rocket.rotate(pitch, Qt.vector3d(1, 0 , 0), Node.LocalSpace)
-                    rocket.rotate(yaw, Qt.vector3d(0, 0, 1), Node.LocalSpace)
-                    rocket.rotate(roll, Qt.vector3d(0, 1 , 0), Node.LocalSpace)
+                    rocket.bodyNode.rotate(pitch, Qt.vector3d(1, 0 , 0), Node.LocalSpace)
+                    rocket.bodyNode.rotate(yaw, Qt.vector3d(0, 0, 1), Node.LocalSpace)
+                    rocket.bodyNode.rotate(roll, Qt.vector3d(0, 1 , 0), Node.LocalSpace)
 
                 }
             }
