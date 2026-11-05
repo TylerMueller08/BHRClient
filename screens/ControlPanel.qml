@@ -13,7 +13,7 @@ Rectangle {
         spacing: 10
 
         Rectangle {
-            color: "#121314"
+            color: "#008000"
             radius: 10
             Layout.fillHeight: true
             Layout.preferredWidth: parent.height
@@ -42,7 +42,7 @@ Rectangle {
         }
 
         Rectangle {
-            color: "#121314"
+            color: "#CC0000"
             radius: 10
             Layout.fillHeight: true
             Layout.preferredWidth: parent.height
