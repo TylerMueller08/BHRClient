@@ -16,14 +16,14 @@ Rectangle {
             width: parent.width
             height: parent.height
             
-            color: "#d4d4d4"
-            font.family: "Monospace"
+            color: "#cccccc"
+            font.family: "Segoe UI"
             font.pixelSize: 14
             wrapMode: TextEdit.WrapAnywhere
             selectByMouse: true
             
-            property string prompt: "user@terminal:$ "
-            text: "Welcome to Blue Horizon Rocketry\n" + prompt
+            property string prompt: "user@terminal:~$ "
+            text: "Welcome to Blue Horizon Rocketry!\n\n" + prompt
             
             Component.onCompleted: forceActiveFocus()
             onCursorPositionChanged: {
@@ -56,6 +56,8 @@ Rectangle {
                     return
                 } else if (cmd === "help") {
                     response = "\nAvailable Commands: help, clear"
+                } else if (cmd === "meow") {
+                    response = "\nMeow!"
                 } else if (cmd !== "") {
                     response = "\n" + cmd + ": command not found"
                 }
