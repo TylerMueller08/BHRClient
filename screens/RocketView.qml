@@ -10,7 +10,11 @@ ColumnLayout {
         
         id: rocketView
         Component.onCompleted: console.log(typeof rocketView.resetOrientation)
-        function resetOrientation() {rocket.eulerRotation = Qt.vector3d(0, 0, 0)}
+
+        function resetOrientation() {
+            originNode.position = Qt.vector3d(0, 0, 0);
+            originNode.eulerRotation = Qt.vector3d(90,0,0);
+        }
         
         View3D {
             id: view
@@ -35,31 +39,28 @@ ColumnLayout {
             }
 
             PerspectiveCamera {
-                position: Qt.vector3d(0, 250, 650)
-                id: camera
-                eulerRotation.x: -15 
-                fieldOfView: 90
+                
             }
 
 
             FrameAnimation {
                 running: true
+                property real phase: Math.random() * 6.28
                 onTriggered: {
-                    const pitch = Math.sin(elapsedTime * (Math.random() + 5))
-                    const yaw = Math.sin(elapsedTime * (Math.random() + 5) + 1) * 0.5
-                    const roll = (view.degPerSec * frameTime) * 2
+                    const t = elapsedTime
                     const a = view.degPerSec * frameTime
                     if (view.held[Qt.Key_W]) rocket.rotate(a, Qt.vector3d(1,0,0), Node.LocalSpace)
                     if (view.held[Qt.Key_S]) rocket.rotate(-a, Qt.vector3d(1,0,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_D]) rocket.rotate(a, Qt.vector3d(0,0,1), Node.LocalSpace)
-                    if (view.held[Qt.Key_A]) rocket.rotate(-a, Qt.vector3d(0,0,1), Node.LocalSpace)
+                    if (view.held[Qt.Key_D]) rocket.rotate(-a, Qt.vector3d(0,0,1), Node.LocalSpace)
+                    if (view.held[Qt.Key_A]) rocket.rotate(a, Qt.vector3d(0,0,1), Node.LocalSpace)
                     if (view.held[Qt.Key_Q]) rocket.rotate(a, Qt.vector3d(0,1,0), Node.LocalSpace)
                     if (view.held[Qt.Key_E]) rocket.rotate(-a, Qt.vector3d(0,1,0), Node.LocalSpace)
-                    if (view.held[Qt.Key_R]) rocket.eulerRotation = Qt.vector3d(0, 0, 0); rocket.bodyNode.eulerRotation = Qt.vector3d(0,0,0)
+                    if (view.held[Qt.Key_R]) {
+                        rocketView.resetOrientation();
+                    } 
 
-                    rocket.bodyNode.rotate(pitch, Qt.vector3d(1, 0 , 0), Node.LocalSpace)
-                    rocket.bodyNode.rotate(yaw, Qt.vector3d(0, 0, 1), Node.LocalSpace)
-                    rocket.bodyNode.rotate(roll, Qt.vector3d(0, 1 , 0), Node.LocalSpace)
+                    rocket.rotateNode.eulerRotation = Qt.vector3d(4 * Math.sin(t * 2.0 + phase), (90 * t) % 360, 4 * Math.sin(t * 2.6))
+                    
 
                 }
             }
@@ -67,8 +68,28 @@ ColumnLayout {
             RocketMesh {
                 id: rocket
                 scale: Qt.vector3d(5, 5, 5)
+                eulerRotation: Qt.vector3d(90,0,0)
+            }
+
+            camera: cameraNode
+            Node {
+                id: originNode
+                eulerRotation: Qt.vector3d(90,0,0)
+                PerspectiveCamera {
+                    id: cameraNode
+                    position: Qt.vector3d(0, 250, 650)
+                    eulerRotation.x: -15
+                    fieldOfView: 90
+                }
+            }
+            OrbitCameraController {
+                anchors.fill: parent
+                origin: originNode
+                camera: cameraNode
             }
         }
+
+            
     }
 
     Rectangle {

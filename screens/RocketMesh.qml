@@ -5,7 +5,8 @@ Node {
     id: root
     objectName: "Root"
 
-    property alias bodyNode: ship
+    property alias rotateNode: pivot
+    property alias wasdNode: wasd
 
     // Resources
     PrincipledMaterial {
@@ -22,42 +23,47 @@ Node {
 
     // Nodes:
     Node{
+        id: wasd
         Node {
-            id: ship
-            position: Qt.vector3d(0,-100,0)
+            id: pivot
+            Node {
+                id: ship
+                position: Qt.vector3d(0,-100,0)
 
-            Model {
-                id: body
-                objectName: "body"
-                source: "meshes/body_mesh.mesh"
-                materials: [
-                    principledMaterial_material
-                ]
+                Model {
+                    id: body
+                    objectName: "body"
+                    source: "meshes/body_mesh.mesh"
+                    materials: [
+                        principledMaterial_material
+                    ]
+                }
+                Model {
+                    id: nose
+                    objectName: "nose"
+                    source: "meshes/nose_mesh.mesh"
+                    materials: [
+                        principledMaterial_material
+                    ]
+                }
+                Model {
+                    id: nozzle
+                    objectName: "nozzle"
+                    source: "meshes/nozzle_mesh.mesh"
+                    materials: [
+                        principledMaterial_material
+                    ]
+                }
+                Model {
+                    id: fins
+                    objectName: "fins"
+                    source: "meshes/fins_mesh.mesh"
+                    materials: [
+                        principledMaterial_material
+                    ]
+                }
             }
-            Model {
-                id: nose
-                objectName: "nose"
-                source: "meshes/nose_mesh.mesh"
-                materials: [
-                    principledMaterial_material
-                ]
-            }
-            Model {
-                id: nozzle
-                objectName: "nozzle"
-                source: "meshes/nozzle_mesh.mesh"
-                materials: [
-                    principledMaterial_material
-                ]
-            }
-            Model {
-                id: fins
-                objectName: "fins"
-                source: "meshes/fins_mesh.mesh"
-                materials: [
-                    principledMaterial_material
-                ]
-            }
+            
         }
     }
 
