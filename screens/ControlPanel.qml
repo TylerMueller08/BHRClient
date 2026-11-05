@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "../widgets"
 
 Rectangle {
     color: "#191a1b"
@@ -34,27 +35,10 @@ Rectangle {
             }
         }
 
-        Rectangle {
-            color: "#121314"
-            radius: 10
+        Terminal {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth: 2
-
-            Text {
-                anchors.centerIn: parent
-                text: "Terminal"
-                font.family: "Segoe UI"
-                font.weight: Font.Bold
-                font.pointSize: 16
-                color: "#cccccc"
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-            }
         }
 
         Rectangle {
