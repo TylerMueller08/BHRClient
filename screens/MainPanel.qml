@@ -25,9 +25,13 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter
             spacing: 15
 
+            RocketView {
+                Layout.alignment: Qt. AlignLeft
+                id: rocketView
+            }
+
             PyQtGraphItem {
                 id: graphItem
-
                 Layout.fillHeight: true
                 width: mainPanel.width * 0.45
 
