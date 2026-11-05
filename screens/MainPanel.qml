@@ -20,16 +20,22 @@ Rectangle {
         Timer {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         }
-
-        PyQtGraphItem {
-            id: graphItem
-
+        RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            Layout.fillHeight: true
-            width: mainPanel.width * 0.45
+            spacing: 15
 
-            Component.onCompleted: telemetry.registerGraph(graphItem)
+            RocketView {
+                Layout.alignment: Qt. AlignLeft
+                id: rocketView
+            }
+
+            PyQtGraphItem {
+                id: graphItem
+                Layout.fillHeight: true
+                width: mainPanel.width * 0.45
+
+                Component.onCompleted: telemetry.registerGraph(graphItem)
+            }
         }
 
         RowLayout {

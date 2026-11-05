@@ -1,5 +1,6 @@
-from PySide6.QtCore import QObject, QTimer, Signal, Slot
-import random, json
+from PySide6.QtCore import QObject, QTimer, QElapsedTimer, Signal, Slot, Qt
+from PySide6.QtGui import QVector3D
+import random, json, math
 
 class SimulatedLink(QObject):
     frameReceived = Signal(dict) # Input channel values.
@@ -11,8 +12,11 @@ class SimulatedLink(QObject):
         self._timer.setInterval(interval_ms)
         self._timer.timeout.connect(self._tick)
 
+        self._elapsed = QElapsedTimer()
+
     def open(self):
         self._timer.start()
+        self._elapsed.start()
         self.stateChanged.emit(True, "Simulator Connected")
 
     def close(self):
@@ -27,7 +31,8 @@ class SimulatedLink(QObject):
         self.frameReceived.emit({
             "oxygen": round(random.uniform(75.0, 95.0), 1),
             "fuel": round(random.uniform(60.0, 90.0), 1),
-            "nitrogen": round(random.uniform(40.0, 60.0), 1)
+            "nitrogen": round(random.uniform(40.0, 60.0), 1),
+            "attitude" : QVector3D(4 * math.sin(self._elapsed.elapsed() * 2.0 + (random.random()+5)), (90 * self._elapsed.elapsed()) % 360, 4 * math.sin(self._elapsed.elapsed() * 2.6))
         })
 
 
