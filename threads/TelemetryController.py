@@ -19,6 +19,7 @@ class TelemetryController(QObject):
             "oxygen": 0.0,
             "fuel": 0.0,
             "nitrogen": 0.0,
+            "altitude": 0.0,
             "attitude": QVector3D(0,0,0)
         }
 
