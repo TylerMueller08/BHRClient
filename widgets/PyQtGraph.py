@@ -44,7 +44,7 @@ class PyQtGraphItem(QQuickPaintedItem):
             self._render_plot()
 
     def paint(self, painter: QPainter):
-        if not self._pixmap.isNull():
+        if self._pixmap.isNull():
             return
         pixmap = self.plot_widget.grab()
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
