@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt, Slot
-from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPainter, QPixmap
 from PySide6.QtQuick import QQuickPaintedItem
 import pyqtgraph as pg
 
@@ -10,6 +10,7 @@ class PyQtGraphItem(QQuickPaintedItem):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.plot_widget = None
+        self._pixmap = QPixmap()
 
         pg.setConfigOptions(antialias=True)
         plot = pg.PlotWidget()
@@ -29,16 +30,21 @@ class PyQtGraphItem(QQuickPaintedItem):
         self.setImplicitWidth(600)
         self.setImplicitHeight(300)
 
+    def _render_plot(self):
+        if self.plot_widget:
+            self._pixmap = self.plot_widget.grab()
+            self.update()
+
     def geometryChange(self, new_geometry, old_geometry):
         super().geometryChange(new_geometry, old_geometry)
         w, h = new_geometry.width(), new_geometry.height()
         if self.plot_widget and w > 0 and h > 0:
             scale = min(1.0, w / self.MIN_W, h / self.MIN_H)
             self.plot_widget.resize(int(w / scale), int(h / scale))
-            self.update()
+            self._render_plot()
 
     def paint(self, painter: QPainter):
-        if not self.plot_widget:
+        if not self._pixmap.isNull():
             return
         pixmap = self.plot_widget.grab()
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
