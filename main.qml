@@ -3,8 +3,11 @@ import QtQuick.Controls
 
 Window {
     visible: true
-    width: 1440; height: 810
+    width: 1600; height: 900
     title: "Blue Horizon Rocketry Application"
+
+    minimumWidth: 1600
+    minimumHeight: 900
 
     property alias fullscreenLayer: fullscreenLayer
 
