@@ -19,6 +19,10 @@ class PyQtGraphItem(QQuickPaintedItem):
         plot.setTitle("Oxygen", color="#cccccc", size="11pt")
         plot.setLabel("left", "Percent (%)", color="#cccccc")
         plot.setLabel("bottom", "Time (s)", color="#cccccc")
+
+        AXIS_W = 45
+        plot.getAxis("left").setWidth(AXIS_W)
+        plot.getPlotItem().layout.setColumnFixedWidth(2, AXIS_W)
         self.curve = plot.plot(pen=pg.mkPen(color="#004F98", width=2.5))
 
         plot.setAttribute(Qt.WidgetAttribute.WA_DontShowOnScreen, True)
