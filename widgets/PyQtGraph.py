@@ -46,9 +46,8 @@ class PyQtGraphItem(QQuickPaintedItem):
     def paint(self, painter: QPainter):
         if self._pixmap.isNull():
             return
-        pixmap = self.plot_widget.grab()
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
-        painter.drawPixmap(self.boundingRect().toRect(), pixmap)
+        painter.drawPixmap(self.boundingRect().toRect(), self._pixmap)
 
     @Slot(list, list, str, str)
     def update_plot(self, x_data, y_data, active_gauge, color):
@@ -57,4 +56,4 @@ class PyQtGraphItem(QQuickPaintedItem):
         self.plot_widget.setTitle(f"{active_gauge}", color="#cccccc", size="11pt")
         self.curve.setPen(pg.mkPen(color=color, width=2.5))
         self.curve.setData(x_data, y_data)
-        self.update()
+        self._render_plot()
