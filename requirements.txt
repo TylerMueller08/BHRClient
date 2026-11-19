@@ -1,0 +1,10 @@
+matplotlib
+numpy
+pandas
+pyinstaller
+PyQt6
+pyqtgraph
+pyserial
+PySide6
+requests
+synnax
