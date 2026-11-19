@@ -1,4 +1,4 @@
-from config import load_settings
+from comms.config import load_settings
 import serial
 
 class XbeeReader():

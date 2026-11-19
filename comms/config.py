@@ -1,5 +1,4 @@
-import json
-import os
+import json, os
 
 DEFAULTS = {
     "port": "COM3",

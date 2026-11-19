@@ -1,39 +1,17 @@
-"""
-A channel is a singular named quantity sent across the link:
-
-    INPUT    rocket -> dashboard    a measurement (pressure, temperature, state, etc.)
-    OUTPUT   dashboard -> rocket    a command (arm, load, fire, etc.)
-"""
-
-from dataclasses import dataclass
-
-INPUT = "input"
-OUTPUT = "output"
-
-@dataclass
-class Channel:
-    key: str           # ID used in Python/QML (e.g. "oxygen")
-    label: str         # Text on GUI (e.g. "Oxygen Pressure")
-    dataflow: str      # INPUT or OUTPUT
-    quantity: str      # Type of value (e.g. "pressure", "state", "command")
-    unit: str = ""     # Unit of measurement (e.g. "psi" or "%")
-
-    # --- Inputs Only ---
-    min: float = 0.0   # Minimum range for inputs.
-    max: float = 0.0   # Maximum range for inputs.
-
-    # --- Outputs Only ---
-    code: int = -1     # Identifier for outgoing commands.
-
+from comms.channel import Input, Output
+from comms.states import GOOD_BAD, SYSTEM_STATES
 
 CHANNELS = [
-    # --- Input Channels (Rocket -> Dashboard) ---
-    Channel("oxygen", "Oxygen", INPUT, "pressure", "psi", 0.0, 100.0),
-    Channel("fuel", "Fuel", INPUT, "pressure", "psi", 0.0, 100.0),
-    Channel("nitrogen", "Nitrogen", INPUT, "pressure", "psi", 0.0, 100.0),
-    Channel("altitude", "Altitude", INPUT, "altitude", "m", 0.0, 30000.0),
+    Input("oxygen", "Oxygen", "percent", "%", min=0, max=2500, color="#004F98"),
+    Input("fuel", "Fuel", "percent", "%", min=0, max=50,   color="#00984F", decimals=2),
+    Input("nitrogen", "Nitrogen", "percent", "%", min=0, max=120,  color="#D97706"),
+    Input("state", "System State", "state", states=SYSTEM_STATES),
 
-    # --- Output Channels (Dasboard -> Rocket) ---
-    Channel("disarm", "DISARM SYSTEM", OUTPUT, "command", code=0),
-    Channel("fire", "FIRE IGNITER", OUTPUT, "command", code=1),
+    Output("disarm", "DISARM", code=0, color="#4A4F57"),
+    Output("arm", "ARM", code=1, color="#A86A00"),
+    Output("load", "LOAD", code=2, color="#1E6FD9"),
+    Output("loaded", "LOADED", code=3, color="#8E44AD"),
+    Output("fire", "FIRE", code=4, color="#CC0000", confirm=True),
+    Output("purge", "PURGE", code=5, color="#00807F"),
+    Output("purged", "PURGED", code=6, color="#2E7D32"),
 ]
