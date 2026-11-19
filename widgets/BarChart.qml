@@ -87,22 +87,26 @@ Item {
     }
 
     Text {
-        x: parent.width * 0.32
-        y: parent.height * 0.9
+        x: parent.width * 0.12
+        y: parent.height * 0.86
+        width: parent.width * 0.1
         text: barChart.minValue
         color: "#cccccc"
         font.pixelSize: 15
         font.family: "Segoe UI"
         font.weight: Font.DemiBold
+        horizontalAlignment: Text.AlignRight
     }
 
     Text {
-        x: parent.width * 0.60
-        y: parent.height * 0.9
+        x: parent.width * 0.12
+        y: parent.height * 0.06
+        width: parent.width * 0.1
         text: barChart.maxValue
         color: "#cccccc"
         font.pixelSize: 15
         font.family: "Segoe UI"
         font.weight: Font.DemiBold
+        horizontalAlignment: Text.AlignRight
     }
 }
